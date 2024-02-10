@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bi4xma12fbipa"]
+
+[ext_resource type="Script" path="res://Entitys/Pac Kitty/PacKitty.gd" id="1_63r3n"]
+[ext_resource type="Texture2D" uid="uid://b5nm5slf2bpk0" path="res://Entitys/Sprites/Premium Charakter Spritesheet.png" id="1_l4g85"]
+[ext_resource type="Texture2D" uid="uid://c4adnnvksdbcy" path="res://World/Art/stars.png" id="3_n61k1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gqjlr"]
+radius = 7.5
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 14
+script = ExtResource("1_63r3n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_l4g85")
+hframes = 8
+vframes = 24
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gqjlr")
+
+[node name="Pointer" type="Node2D" parent="."]
+
+[node name="DirectionPointer" type="Sprite2D" parent="Pointer"]
+texture_filter = 1
+position = Vector2(-14, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_n61k1")
+hframes = 9
+vframes = 8
