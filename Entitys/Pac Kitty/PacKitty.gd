@@ -5,6 +5,9 @@ extends CharacterBody2D
 @onready var pointer = $Pointer
 @onready var direction_pointer = $Pointer/DirectionPointer
 @onready var collision_shape = $CollisionShape2D
+@onready var anim_tree = $AnimationTree
+@onready var state_machine = anim_tree.get("parameters/playback") 
+
 
 
 
@@ -29,7 +32,8 @@ func _physics_process(delta):
 	velocity = movement_direction * speed
 	
 	move_and_slide()
-	print(movement_direction)
+	state_machine_update(velocity)
+	animation_direction_update(movement_direction)
 
 func get_input():
 	
@@ -50,3 +54,13 @@ func can_move_in_direction(dir: Vector2, delta: float) -> bool:
 	shape_query.transform = global_transform.translated(dir * speed * delta * 2)
 	var result = get_world_2d().direct_space_state.intersect_shape(shape_query)
 	return result.size() == 0
+
+func state_machine_update(velocity):
+	if velocity != Vector2.ZERO:
+		state_machine.travel("walk")
+	else:
+		state_machine.travel("idle")
+
+func animation_direction_update(movement_direction):
+	anim_tree.set("parameters/walk/blend_position", movement_direction)
+	
