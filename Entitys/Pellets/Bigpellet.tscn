@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://fo0vndps3my1"]
+
+[ext_resource type="Texture2D" uid="uid://b47wn2uhv8njc" path="res://Entitys/Sprites/All items.png" id="1_mn1cb"]
+[ext_resource type="Script" path="res://Entitys/Pellets/pellet.gd" id="1_nyn2d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0x3pt"]
+size = Vector2(12, 12)
+
+[node name="BigPellet" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_nyn2d")
+should_allow_eating_gosts = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_mn1cb")
+hframes = 8
+vframes = 15
+frame = 93
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0x3pt")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
