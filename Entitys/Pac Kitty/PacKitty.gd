@@ -1,12 +1,15 @@
 class_name Player
 extends CharacterBody2D
 
-@export var speed = 120
+@export var speed = 100
+@export var death: Color
 @onready var pointer = $Pointer
 @onready var direction_pointer = $Pointer/DirectionPointer
 @onready var collision_shape = $CollisionShape2D
 @onready var anim_tree = $AnimationTree
 @onready var state_machine = anim_tree.get("parameters/playback") 
+@onready var sprite_2d = $Sprite2D
+
 
 
 
@@ -64,3 +67,7 @@ func state_machine_update(velocity):
 func animation_direction_update(movement_direction):
 	anim_tree.set("parameters/walk/blend_position", movement_direction)
 	
+func die():
+	sprite_2d.modulate = death
+	set_physics_process(false)
+	pass

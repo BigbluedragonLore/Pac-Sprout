@@ -52,6 +52,7 @@ down={
 2d_physics/layer_2="Wall"
 2d_physics/layer_3="SmallPellet"
 2d_physics/layer_4="BigPellet"
+2d_physics/layer_5="Ghost"
 
 [rendering]
 
