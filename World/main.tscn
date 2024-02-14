@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://f0wdklu3fmyv"]
+[gd_scene load_steps=38 format=3 uid="uid://f0wdklu3fmyv"]
 
 [ext_resource type="Texture2D" uid="uid://cbnfi70h2d4ip" path="res://World/Art/Fences.png" id="1_iefvr"]
 [ext_resource type="Texture2D" uid="uid://bnw0qay7rbng4" path="res://World/Art/Grass_Tile_Layers.png" id="2_lnpoy"]
@@ -10,8 +10,18 @@
 [ext_resource type="PackedScene" uid="uid://krxs7wwfb2fu" path="res://World/connector.tscn" id="6_mdeu8"]
 [ext_resource type="PackedScene" uid="uid://c8alreuvoym5o" path="res://World/ui.tscn" id="8_pltlp"]
 [ext_resource type="PackedScene" uid="uid://b826re2khwj2c" path="res://Entitys/Ghosts/ghost.tscn" id="9_56ghu"]
+[ext_resource type="Script" path="res://World/Ghosts.gd" id="10_2vyil"]
 [ext_resource type="Resource" uid="uid://cw2pk4l0o4w0c" path="res://Resources/red_movement_targets.tres" id="10_morb2"]
+[ext_resource type="Resource" uid="uid://1i6f22u77s1b" path="res://Resources/yellow_movement_targets.tres" id="12_gnxhk"]
 [ext_resource type="Script" path="res://World/point_manager.gd" id="12_q5ugp"]
+[ext_resource type="Resource" uid="uid://jcwexo5v16m1" path="res://Resources/green_movement_targets.tres" id="13_0256s"]
+[ext_resource type="Resource" uid="uid://dbqmqry3k5quv" path="res://Resources/blue_movement_targets.tres" id="14_dsl8l"]
+[ext_resource type="AudioStream" uid="uid://cm8e6ste88jyg" path="res://World/Sound/Page_Turn.wav" id="17_d5hdu"]
+[ext_resource type="AudioStream" uid="uid://ct4geqsrbawud" path="res://World/Sound/83_Power_up_04.wav" id="18_7m07u"]
+[ext_resource type="AudioStream" uid="uid://8kg0iiitcyl6" path="res://World/Sound/Small_Secret.wav" id="19_kh1dn"]
+[ext_resource type="AudioStream" uid="uid://y07ula00hmh6" path="res://World/Sound/OST 1 - Good Morning.wav" id="20_uptrc"]
+[ext_resource type="AudioStream" uid="uid://bvnwpdeh8oh7n" path="res://World/Sound/0211_Horror (loopable).wav" id="21_2uvvl"]
+[ext_resource type="AudioStream" uid="uid://mnbp6efb01rr" path="res://World/Sound/70_Die_03.wav" id="22_6r5h8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t775i"]
 texture = ExtResource("1_iefvr")
@@ -525,13 +535,19 @@ script = ExtResource("3_mmx26")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.8, 1.8)
 
-[node name="Player" parent="." instance=ExtResource("3_05lvd")]
+[node name="UI" parent="." node_paths=PackedStringArray("main_scene") instance=ExtResource("8_pltlp")]
+main_scene = NodePath("..")
+
+[node name="Player" parent="." node_paths=PackedStringArray("start_position", "death_player", "ui") instance=ExtResource("3_05lvd")]
 z_index = 1
 position = Vector2(8, 23)
+start_position = NodePath("../MovementTargets/Player/StartingPosition")
+death_player = NodePath("../SoundPlayers/DeathPlayer")
+ui = NodePath("../UI")
 
 [node name="Pellets" type="Node" parent="." node_paths=PackedStringArray("ghost_array")]
 script = ExtResource("4_yl74m")
-ghost_array = [NodePath("../Ghosts/Ghost")]
+ghost_array = [NodePath("../Ghosts/Ghost"), NodePath("../Ghosts/Ghost2"), NodePath("../Ghosts/Ghost3"), NodePath("../Ghosts/Ghost4")]
 
 [node name="Pellet" parent="Pellets" instance=ExtResource("4_6cb36")]
 z_as_relative = false
@@ -1283,8 +1299,6 @@ position = Vector2(-120, -152)
 
 [node name="Connector" parent="." instance=ExtResource("6_mdeu8")]
 
-[node name="UI" parent="." instance=ExtResource("8_pltlp")]
-
 [node name="MovementTargets" type="Node" parent="."]
 
 [node name="RedGhost" type="Node" parent="MovementTargets"]
@@ -1311,14 +1325,164 @@ position = Vector2(-13, -3)
 [node name="Top" type="Marker2D" parent="MovementTargets/RedGhost/Home"]
 position = Vector2(-13, -13)
 
-[node name="Ghosts" type="Node" parent="."]
+[node name="StartingPosition" type="Marker2D" parent="MovementTargets/RedGhost"]
+position = Vector2(8, -40)
 
-[node name="Ghost" parent="Ghosts" node_paths=PackedStringArray("tile_map", "chasing_target", "point_manager") instance=ExtResource("9_56ghu")]
+[node name="YellowGhost" type="Node" parent="MovementTargets"]
+
+[node name="Scatter" type="Node" parent="MovementTargets/YellowGhost"]
+
+[node name="Yellow1" type="Marker2D" parent="MovementTargets/YellowGhost/Scatter"]
+position = Vector2(88, -104)
+
+[node name="Yellow2" type="Marker2D" parent="MovementTargets/YellowGhost/Scatter"]
+position = Vector2(88, -152)
+
+[node name="Yellow3" type="Marker2D" parent="MovementTargets/YellowGhost/Scatter"]
+position = Vector2(136, -152)
+
+[node name="Yellow4" type="Marker2D" parent="MovementTargets/YellowGhost/Scatter"]
+position = Vector2(136, -104)
+
+[node name="Home" type="Node" parent="MovementTargets/YellowGhost"]
+
+[node name="Bottom" type="Marker2D" parent="MovementTargets/YellowGhost/Home"]
+position = Vector2(8, 0)
+
+[node name="Top" type="Marker2D" parent="MovementTargets/YellowGhost/Home"]
+position = Vector2(8, -16)
+
+[node name="StartingPosition" type="Marker2D" parent="MovementTargets/YellowGhost"]
+position = Vector2(8, -8)
+
+[node name="GreenGhost" type="Node" parent="MovementTargets"]
+
+[node name="Scatter" type="Node" parent="MovementTargets/GreenGhost"]
+
+[node name="Green1" type="Marker2D" parent="MovementTargets/GreenGhost/Scatter"]
+position = Vector2(-72, 56)
+
+[node name="Green2" type="Marker2D" parent="MovementTargets/GreenGhost/Scatter"]
+position = Vector2(-120, 56)
+
+[node name="Green3" type="Marker2D" parent="MovementTargets/GreenGhost/Scatter"]
+position = Vector2(-104, 120)
+
+[node name="Green4" type="Marker2D" parent="MovementTargets/GreenGhost/Scatter"]
+position = Vector2(-72, 120)
+
+[node name="Home" type="Node" parent="MovementTargets/GreenGhost"]
+
+[node name="Bottom" type="Marker2D" parent="MovementTargets/GreenGhost/Home"]
+position = Vector2(24, 0)
+
+[node name="Top" type="Marker2D" parent="MovementTargets/GreenGhost/Home"]
+position = Vector2(24, -16)
+
+[node name="StartingPosition" type="Marker2D" parent="MovementTargets/GreenGhost"]
+position = Vector2(24, -8)
+
+[node name="BlueGhost" type="Node" parent="MovementTargets"]
+
+[node name="Scatter" type="Node" parent="MovementTargets/BlueGhost"]
+
+[node name="Blue1" type="Marker2D" parent="MovementTargets/BlueGhost/Scatter"]
+position = Vector2(88, 56)
+
+[node name="Blue2" type="Marker2D" parent="MovementTargets/BlueGhost/Scatter"]
+position = Vector2(136, 56)
+
+[node name="Blue3" type="Marker2D" parent="MovementTargets/BlueGhost/Scatter"]
+position = Vector2(120, 120)
+
+[node name="Blue4" type="Marker2D" parent="MovementTargets/BlueGhost/Scatter"]
+position = Vector2(88, 120)
+
+[node name="Home" type="Node" parent="MovementTargets/BlueGhost"]
+
+[node name="Bottom" type="Marker2D" parent="MovementTargets/BlueGhost/Home"]
+position = Vector2(-8, 0)
+
+[node name="Top" type="Marker2D" parent="MovementTargets/BlueGhost/Home"]
+position = Vector2(-8, -16)
+
+[node name="StartingPosition" type="Marker2D" parent="MovementTargets/BlueGhost"]
+position = Vector2(-8, -8)
+
+[node name="Player" type="Node" parent="MovementTargets"]
+
+[node name="StartingPosition" type="Marker2D" parent="MovementTargets/Player"]
+position = Vector2(8, 23)
+
+[node name="Ghosts" type="Node" parent="."]
+script = ExtResource("10_2vyil")
+
+[node name="Ghost" parent="Ghosts" node_paths=PackedStringArray("tile_map", "chasing_target", "point_manager", "starting_position", "eat_ghost_sound") instance=ExtResource("9_56ghu")]
 position = Vector2(8, -40)
 movement_targets = ExtResource("10_morb2")
 tile_map = NodePath("../../TileMap")
 chasing_target = NodePath("../../Player")
 point_manager = NodePath("../../PointManager")
+scatter_wait_time = 6
+starting_position = NodePath("../../MovementTargets/RedGhost/StartingPosition")
+eat_ghost_sound = NodePath("../../SoundPlayers/EatGhost")
+
+[node name="Ghost2" parent="Ghosts" node_paths=PackedStringArray("tile_map", "chasing_target", "point_manager", "starting_position", "eat_ghost_sound") instance=ExtResource("9_56ghu")]
+position = Vector2(8, -8)
+movement_targets = ExtResource("12_gnxhk")
+tile_map = NodePath("../../TileMap")
+chasing_target = NodePath("../../Player")
+coloration = 3
+point_manager = NodePath("../../PointManager")
+is_starting_at_home = true
+starting_position = NodePath("../../MovementTargets/YellowGhost/StartingPosition")
+eat_ghost_sound = NodePath("../../SoundPlayers/EatGhost")
+
+[node name="Ghost3" parent="Ghosts" node_paths=PackedStringArray("tile_map", "chasing_target", "point_manager", "starting_position", "eat_ghost_sound") instance=ExtResource("9_56ghu")]
+position = Vector2(24, -8)
+movement_targets = ExtResource("13_0256s")
+tile_map = NodePath("../../TileMap")
+chasing_target = NodePath("../../Player")
+coloration = 2
+point_manager = NodePath("../../PointManager")
+is_starting_at_home = true
+scatter_wait_time = 7
+starting_position = NodePath("../../MovementTargets/GreenGhost/StartingPosition")
+eat_ghost_sound = NodePath("../../SoundPlayers/EatGhost")
+
+[node name="Ghost4" parent="Ghosts" node_paths=PackedStringArray("tile_map", "chasing_target", "point_manager", "starting_position", "eat_ghost_sound") instance=ExtResource("9_56ghu")]
+position = Vector2(-8, -8)
+movement_targets = ExtResource("14_dsl8l")
+tile_map = NodePath("../../TileMap")
+chasing_target = NodePath("../../Player")
+coloration = 1
+point_manager = NodePath("../../PointManager")
+is_starting_at_home = true
+scatter_wait_time = 6
+starting_position = NodePath("../../MovementTargets/BlueGhost/StartingPosition")
+eat_ghost_sound = NodePath("../../SoundPlayers/EatGhost")
 
 [node name="PointManager" type="Node" parent="."]
 script = ExtResource("12_q5ugp")
+
+[node name="SoundPlayers" type="Node" parent="."]
+
+[node name="EatPellets" type="AudioStreamPlayer2D" parent="SoundPlayers"]
+stream = ExtResource("17_d5hdu")
+
+[node name="EatBigPelets" type="AudioStreamPlayer2D" parent="SoundPlayers"]
+stream = ExtResource("18_7m07u")
+
+[node name="EatGhost" type="AudioStreamPlayer2D" parent="SoundPlayers"]
+stream = ExtResource("19_kh1dn")
+
+[node name="MusicPlayer" type="AudioStreamPlayer2D" parent="SoundPlayers"]
+stream = ExtResource("20_uptrc")
+volume_db = -1.0
+
+[node name="HorrorPlayer" type="AudioStreamPlayer2D" parent="SoundPlayers"]
+stream = ExtResource("21_2uvvl")
+volume_db = -2.0
+
+[node name="DeathPlayer" type="AudioStreamPlayer2D" parent="SoundPlayers"]
+stream = ExtResource("22_6r5h8")

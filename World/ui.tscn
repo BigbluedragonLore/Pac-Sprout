@@ -30,6 +30,19 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LifeCountLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1 UP"
+
+[node name="GameScoreLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "SCORE: 0"
+
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
 visible = false
 layout_mode = 2
@@ -40,6 +53,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ym72q")
 
 [node name="GameLabel" type="Label" parent="MarginContainer/CenterContainer/Panel"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -55,3 +69,13 @@ grow_vertical = 2
 theme = SubResource("Theme_tnpic")
 text = "Game won!"
 vertical_alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/CenterContainer/Panel"]
+layout_mode = 2
+offset_left = 120.0
+offset_top = 147.0
+offset_right = 180.0
+offset_bottom = 178.0
+text = "Replay"
+
+[connection signal="pressed" from="MarginContainer/CenterContainer/Panel/Button" to="." method="_on_button_pressed"]
