@@ -1,8 +1,14 @@
 class_name Player
 extends CharacterBody2D
 
+signal player_died(lifes: int)
+
 @export var speed = 100
 @export var death: Color
+@export var start_position: Node2D
+@export var death_player: AudioStreamPlayer2D
+@export var ui: UI
+
 @onready var pointer = $Pointer
 @onready var direction_pointer = $Pointer/DirectionPointer
 @onready var collision_shape = $CollisionShape2D
@@ -13,7 +19,7 @@ extends CharacterBody2D
 
 
 
-
+var lifes: int = 2
 var next_direction = Vector2.ZERO
 var movement_direction = Vector2.ZERO
 var shape_query = PhysicsShapeQueryParameters2D.new()
@@ -23,6 +29,15 @@ func _ready():
 #	shape_query.collide_with_areas = false
 #	shape_query.collide_with_bodies = true
 	shape_query.collision_mask = 2
+	ui.set_lifes(lifes)
+	
+func reset_player():
+	sprite_2d.modulate = Color(1,1,1,1)
+	position = start_position.position
+	next_direction = Vector2.ZERO
+	movement_direction = Vector2.ZERO
+	set_physics_process(true)
+	
  
 func _physics_process(delta):
 	get_input()
@@ -68,6 +83,12 @@ func animation_direction_update(movement_direction):
 	anim_tree.set("parameters/walk/blend_position", movement_direction)
 	
 func die():
+	death_player.play()
 	sprite_2d.modulate = death
 	set_physics_process(false)
-	pass
+	if death_player.finished:
+		lifes -= 1
+		ui.set_lifes(lifes)
+		player_died.emit()
+		if lifes !=0:
+			reset_player()

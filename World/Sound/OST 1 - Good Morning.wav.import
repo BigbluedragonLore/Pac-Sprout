@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://y07ula00hmh6"
+path="res://.godot/imported/OST 1 - Good Morning.wav-dd930665acd16b05b2741622a486d05a.sample"
+
+[deps]
+
+source_file="res://World/Sound/OST 1 - Good Morning.wav"
+dest_files=["res://.godot/imported/OST 1 - Good Morning.wav-dd930665acd16b05b2741622a486d05a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
