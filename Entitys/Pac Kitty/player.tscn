@@ -167,7 +167,7 @@ texture_filter = 1
 texture = ExtResource("1_l4g85")
 hframes = 8
 vframes = 24
-frame = 33
+frame = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_gqjlr")

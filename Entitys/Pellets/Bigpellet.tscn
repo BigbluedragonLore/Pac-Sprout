@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0x3pt"]
 size = Vector2(12, 12)
 
-[node name="BigPellet" type="Area2D"]
+[node name="BigPellet" type="Area2D" groups=["BigPellet"]]
 collision_layer = 8
 script = ExtResource("1_nyn2d")
 should_allow_eating_gosts = true

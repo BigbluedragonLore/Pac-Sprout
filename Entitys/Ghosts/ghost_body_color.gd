@@ -33,7 +33,6 @@ func _process(delta):
 	var parent = get_parent()
 	if parent.current_state == 2:
 		anim_player.play("runaway")
-		print("run")
 	elif parent.current_state == 3:
 		anim_player.stop()
 		blink_1()

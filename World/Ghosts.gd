@@ -7,5 +7,9 @@ func _ready():
 	
 func reset_ghosts():
 	var ghosts = get_children() as Array[Ghost]
+	
 	for ghost in ghosts:
-		ghost.setup()
+		if player.lifes == 0:
+			ghost.set_process(false)
+		else:
+			ghost.setup()

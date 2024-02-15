@@ -15,6 +15,8 @@ signal player_died(lifes: int)
 @onready var anim_tree = $AnimationTree
 @onready var state_machine = anim_tree.get("parameters/playback") 
 @onready var sprite_2d = $Sprite2D
+@onready var anim_player = $AnimationPlayer
+
 
 
 
@@ -37,6 +39,7 @@ func reset_player():
 	next_direction = Vector2.ZERO
 	movement_direction = Vector2.ZERO
 	set_physics_process(true)
+	set_collision_layer_value(1, true)
 	
  
 func _physics_process(delta):
@@ -86,6 +89,9 @@ func die():
 	death_player.play()
 	sprite_2d.modulate = death
 	set_physics_process(false)
+	set_collision_layer_value(1, false)
+	state_machine.travel("idle")
+	await get_tree().create_timer(1.0).timeout
 	if death_player.finished:
 		lifes -= 1
 		ui.set_lifes(lifes)
