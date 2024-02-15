@@ -10,12 +10,31 @@ signal game_over
 @onready var game_score_label = %GameScoreLabel
 @onready var game_label = %GameLabel
 @onready var button = $MarginContainer/CenterContainer/Panel/Button
+@onready var texture_rect = $MarginContainer/VBoxContainer/HBoxContainer/TextureRect
+@onready var texture_rect_2 = $MarginContainer/VBoxContainer/HBoxContainer/TextureRect2
+@onready var texture_rect_3 = $MarginContainer/VBoxContainer/HBoxContainer/TextureRect3
+
 
 
 
 func set_lifes(lifes):
-	life_count_label.text = "%d UP" % lifes
-	if lifes == 0:
+#	life_count_label.text = "%d UP" % lifes
+	if lifes == 3:
+		texture_rect.show()
+		texture_rect_2.show()
+		texture_rect_3.show()
+	elif lifes == 2:
+		texture_rect.show()
+		texture_rect_2.show()
+		texture_rect_3.hide()
+	elif lifes == 1:
+		texture_rect.show()
+		texture_rect_2.hide()
+		texture_rect_3.hide()
+	elif lifes == 0:
+		texture_rect.hide()
+		texture_rect_2.hide()
+		texture_rect_3.hide()
 		game_lost()
 
 func set_score(score):
@@ -27,7 +46,7 @@ func game_lost():
 	game_over.emit()
 
 func game_won():
-	game_label.text = "GAME WON"
+	game_label.text = "GAME WON!"
 	center_container.show()
 
 func _on_button_pressed():
