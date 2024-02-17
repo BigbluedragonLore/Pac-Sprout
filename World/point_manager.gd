@@ -13,7 +13,7 @@ func _ready():
 func pause_on_ghost_eaten():
 	points += points_for_eaten_ghost
 	get_tree().paused = true
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.5).timeout
 	get_tree().paused = false
 	points_for_eaten_ghost += 200
 	ui.set_score(points)

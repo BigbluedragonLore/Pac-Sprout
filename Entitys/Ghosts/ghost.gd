@@ -17,8 +17,8 @@ var movement_direction = Vector2.ZERO
 
 var current_state: GhostState
 
-@export var eaten_speed = 200
-@export var speed= 70
+@export var eaten_speed = 180
+@export var speed= 65
 @export var start_at_home_speed= 35
 @export var movement_targets: Resource
 @export var tile_map: MazeTileMap
@@ -56,7 +56,6 @@ func _process(delta):
 func move_ghost(next_position: Vector2, delta : float):
 	var current_ghost_position = global_position
 	var current_speed
-#	var current_speed = eaten_speed if current_state == GhostState.EATEN else speed
 	if current_state == GhostState.EATEN:
 		current_speed = eaten_speed
 	elif current_state == GhostState.STARTING_AT_HOME:
