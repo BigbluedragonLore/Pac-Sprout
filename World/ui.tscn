@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8alreuvoym5o"]
+[gd_scene load_steps=9 format=3 uid="uid://c8alreuvoym5o"]
 
 [ext_resource type="Script" path="res://World/ui.gd" id="1_ry3fj"]
 [ext_resource type="Texture2D" uid="uid://b4id8r3100h0e" path="res://Entitys/UI/Heart in wood.png" id="2_cgxgp"]
+[ext_resource type="Texture2D" uid="uid://b3mgmrfvyjt0k" path="res://Entitys/UI/dialog box big.png" id="2_x61rj"]
+[ext_resource type="FontFile" uid="uid://d0a60khv7hx3r" path="res://Entitys/UI/ManaSeedTitleMono.ttf" id="3_tvpkh"]
 [ext_resource type="Texture2D" uid="uid://qtcyutpo4m7h" path="res://Entitys/UI/Panel.png" id="3_ud2s6"]
+[ext_resource type="Texture2D" uid="uid://c0mnyr3mtpx4m" path="res://Entitys/UI/DragonDialogbox3.png" id="6_qw3fj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ym72q"]
 bg_color = Color(0, 0, 0, 1)
@@ -16,10 +19,18 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="Theme" id="Theme_tnpic"]
-default_font_size = 40
+default_font_size = 30
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_ry3fj")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = 1.0
+offset_top = 574.0
+offset_right = 185.0
+offset_bottom = 638.0
+texture = ExtResource("2_x61rj")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -27,30 +38,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
+theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
+theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("2_cgxgp")
 stretch_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("2_cgxgp")
 stretch_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("2_cgxgp")
@@ -65,7 +80,8 @@ text = "1 UP"
 [node name="GameScoreLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "SCORE: 0"
+theme_override_fonts/font = ExtResource("3_tvpkh")
+text = "SCORE:0"
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
 visible = false
@@ -77,10 +93,21 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ym72q")
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/CenterContainer/Panel"]
+texture_filter = 1
 layout_mode = 2
 offset_right = 300.0
 offset_bottom = 200.0
 texture = ExtResource("3_ud2s6")
+
+[node name="GameScoreLabel2" type="Label" parent="MarginContainer/CenterContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 63.0
+offset_top = 45.0
+offset_right = 1205.0
+offset_bottom = 64.0
+theme_override_fonts/font = ExtResource("3_tvpkh")
+text = "SCORE:0"
 
 [node name="GameLabel" type="Label" parent="MarginContainer/CenterContainer/Panel"]
 unique_name_in_owner = true
@@ -97,15 +124,234 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_tnpic")
-text = "Game won!"
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_tvpkh")
+text = "GAME OVER"
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="MarginContainer/CenterContainer/Panel"]
 layout_mode = 2
-offset_left = 120.0
+offset_left = 96.0
 offset_top = 147.0
-offset_right = 180.0
+offset_right = 200.0
 offset_bottom = 178.0
+theme_override_fonts/font = ExtResource("3_tvpkh")
 text = "Replay"
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/CenterContainer/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_top = 211.0
+offset_right = 300.0
+offset_bottom = 411.0
+texture = ExtResource("3_ud2s6")
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/Panel/TextureRect2"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 9.0
+offset_right = 295.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_tvpkh")
+theme_override_font_sizes/font_size = 20
+text = "Assets and UI:"
+
+[node name="Label2" type="Label" parent="MarginContainer/CenterContainer/Panel/TextureRect2"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 33.0
+offset_right = 175.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("3_tvpkh")
+text = "Cup Nooble"
+
+[node name="LinkButton" type="LinkButton" parent="MarginContainer/CenterContainer/Panel/TextureRect2"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 50.0
+offset_right = 204.0
+offset_bottom = 90.0
+text = "Sprout Lands Asset Pack"
+uri = "https://cupnooble.itch.io/sprout-lands-asset-pack"
+
+[node name="LinkButton2" type="LinkButton" parent="MarginContainer/CenterContainer/Panel/TextureRect2"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 72.0
+offset_right = 204.0
+offset_bottom = 112.0
+text = "Sprout Lands UI Pack"
+uri = "https://cupnooble.itch.io/sprout-lands-ui-pack"
+
+[node name="Label3" type="Label" parent="MarginContainer/CenterContainer/Panel/TextureRect2"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 112.0
+offset_right = 295.0
+offset_bottom = 136.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_tvpkh")
+theme_override_font_sizes/font_size = 20
+text = "Font:"
+
+[node name="Label4" type="Label" parent="MarginContainer/CenterContainer/Panel/TextureRect2"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 136.0
+offset_right = 287.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("3_tvpkh")
+text = "Seliel the Shaper"
+
+[node name="LinkButton3" type="LinkButton" parent="MarginContainer/CenterContainer/Panel/TextureRect2"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 151.0
+offset_right = 204.0
+offset_bottom = 191.0
+text = "Mana Seed Fonts"
+uri = "https://seliel-the-shaper.itch.io/mana-seed-fonts"
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/CenterContainer/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -308.0
+offset_top = 211.0
+offset_right = -8.0
+offset_bottom = 411.0
+texture = ExtResource("3_ud2s6")
+
+[node name="Label5" type="Label" parent="MarginContainer/CenterContainer/Panel/TextureRect3"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 9.0
+offset_right = 290.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_tvpkh")
+theme_override_font_sizes/font_size = 20
+text = "Music:"
+
+[node name="Label6" type="Label" parent="MarginContainer/CenterContainer/Panel/TextureRect3"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 41.0
+offset_right = 186.0
+offset_bottom = 79.0
+theme_override_fonts/font = ExtResource("3_tvpkh")
+text = "ElvGames & 
+Peggusensei"
+
+[node name="LinkButton4" type="LinkButton" parent="MarginContainer/CenterContainer/Panel/TextureRect3"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 80.0
+offset_right = 245.0
+offset_bottom = 120.0
+text = "Farming RPG Music Asset Pack"
+uri = "https://elvgames.itch.io/farming-rpg-music-asset-pack"
+
+[node name="Label8" type="Label" parent="MarginContainer/CenterContainer/Panel/TextureRect3"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 136.0
+offset_right = 282.0
+offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("3_tvpkh")
+text = "Prince AM"
+
+[node name="LinkButton5" type="LinkButton" parent="MarginContainer/CenterContainer/Panel/TextureRect3"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 151.0
+offset_right = 217.0
+offset_bottom = 191.0
+text = "Game Santora Horror Pack"
+uri = "https://gamesantora.itch.io/santorahorror"
+
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/CenterContainer/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 308.0
+offset_top = 211.0
+offset_right = 608.0
+offset_bottom = 411.0
+texture = ExtResource("3_ud2s6")
+
+[node name="Label6" type="Label" parent="MarginContainer/CenterContainer/Panel/TextureRect4"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 33.0
+offset_right = 173.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("3_tvpkh")
+text = "Leohpaz"
+
+[node name="Label5" type="Label" parent="MarginContainer/CenterContainer/Panel/TextureRect4"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 9.0
+offset_right = 293.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_tvpkh")
+theme_override_font_sizes/font_size = 20
+text = "Soundeffects:"
+
+[node name="LinkButton4" type="LinkButton" parent="MarginContainer/CenterContainer/Panel/TextureRect4"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 50.0
+offset_right = 202.0
+offset_bottom = 90.0
+text = "Player Movement SFX"
+uri = "https://leohpaz.itch.io/90-retro-player-movement-sfx"
+
+[node name="LinkButton5" type="LinkButton" parent="MarginContainer/CenterContainer/Panel/TextureRect4"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 72.0
+offset_right = 202.0
+offset_bottom = 112.0
+text = "Invebtory SFX"
+uri = "https://leohpaz.itch.io/inventory-sfx-pack"
+
+[node name="LinkButton6" type="LinkButton" parent="MarginContainer/CenterContainer/Panel/TextureRect4"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 94.0
+offset_right = 202.0
+offset_bottom = 134.0
+text = "Jingle and Fanfares"
+uri = "https://leohpaz.itch.io/rpg-jingles-and-fanfares"
+
+[node name="TextureRect5" type="TextureRect" parent="MarginContainer/CenterContainer/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -219.0
+offset_top = -182.0
+offset_right = 181.0
+offset_bottom = -91.0
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("6_qw3fj")
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/Panel/TextureRect5"]
+layout_mode = 0
+offset_left = 111.667
+offset_top = 15.0
+offset_right = 575.667
+offset_bottom = 110.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("3_tvpkh")
+text = "Hello,
+My Name is Blue, 
+from BigBluedragonLore. 
+
+Thank You for playing my game!"
 
 [connection signal="pressed" from="MarginContainer/CenterContainer/Panel/Button" to="." method="_on_button_pressed"]

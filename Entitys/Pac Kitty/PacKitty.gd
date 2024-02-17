@@ -28,8 +28,6 @@ var shape_query = PhysicsShapeQueryParameters2D.new()
 
 func _ready():
 	shape_query.shape = collision_shape.shape
-#	shape_query.collide_with_areas = false
-#	shape_query.collide_with_bodies = true
 	shape_query.collision_mask = 2
 	ui.set_lifes(lifes)
 	
