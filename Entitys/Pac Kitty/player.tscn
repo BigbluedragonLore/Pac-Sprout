@@ -173,6 +173,7 @@ frame = 33
 shape = SubResource("CircleShape2D_gqjlr")
 
 [node name="Pointer" type="Node2D" parent="."]
+visible = false
 
 [node name="DirectionPointer" type="Sprite2D" parent="Pointer"]
 texture_filter = 1

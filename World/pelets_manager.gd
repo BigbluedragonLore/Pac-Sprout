@@ -30,6 +30,11 @@ func _ready():
 	
 	print(total_pellets_count)
 
+func _process(delta):
+	
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().quit()
+
 func on_pellet_eaten(should_allow_eating_gosts: bool):
 	pellet_aray_reset()
 	
