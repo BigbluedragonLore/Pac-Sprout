@@ -21,6 +21,7 @@ var current_state: GhostState
 @export var speed= 65
 @export var start_at_home_speed= 35
 @export var movement_targets: Resource
+@export var mov_targets: Node
 @export var tile_map: MazeTileMap
 @export var chasing_target: Node2D
 @export_enum("Red", "Blue","Green", "Yellow") var coloration: int
@@ -70,7 +71,7 @@ func move_ghost(next_position: Vector2, delta : float):
 func scatter():
 	scatter_timer.start()
 	current_state = GhostState.SCATTER
-	navigation_agent_2d.target_position = movement_targets.scatter_targets[current_scatter_index].position
+	navigation_agent_2d.target_position = mov_targets.scatter_targets[current_scatter_index].position
 
 func setup():
 	position = starting_position.position
@@ -85,7 +86,7 @@ func start_at_home():
 	current_state = GhostState.STARTING_AT_HOME
 	at_home_timer.start()
 #	at_home_timer.timeout.connect(scatter)
-	navigation_agent_2d.target_position = movement_targets.at_home_targets[current_at_home_index].position
+	navigation_agent_2d.target_position = mov_targets.at_home_targets[current_at_home_index].position
 
 func on_position_reached():
 	if current_state == GhostState.SCATTER:
@@ -101,17 +102,18 @@ func on_position_reached():
 
 func move_to_next_home_position():
 	current_at_home_index = 1 if current_at_home_index == 0 else 0
-	navigation_agent_2d.target_position = movement_targets.at_home_targets[current_at_home_index].position
+	navigation_agent_2d.target_position = mov_targets.at_home_targets[current_at_home_index].position
 
 func chase_position_reached():
-	print("Kill Pacman")
+	pass
+#	print("Kill Pacman")
 
 func scatter_position_reached():
 	if current_scatter_index < 3:
 		current_scatter_index += 1
 	else:
 		current_scatter_index = 0
-	navigation_agent_2d.target_position = movement_targets.scatter_targets[current_scatter_index].position
+	navigation_agent_2d.target_position = mov_targets.scatter_targets[current_scatter_index].position
 
 func movementDirection(new_velocity):
 	if new_velocity.x <0:
@@ -159,7 +161,7 @@ func get_eaten():
 	run_away_timer.stop()
 	runaway_timeout.emit()
 	current_state = GhostState.EATEN
-	navigation_agent_2d.target_position = movement_targets.at_home_targets[0].position
+	navigation_agent_2d.target_position = mov_targets.at_home_targets[0].position
 	
 
 
